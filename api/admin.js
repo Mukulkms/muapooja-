@@ -40,6 +40,16 @@ export default async function handler(req, res) {
       return res.status(200).json({ url, key });
     }
 
+    if (action === 'upload') {
+      // fallback: photo comes through this server (no browser CORS needed)
+      const key = String(body.key || '');
+      if (!key.startsWith(PREFIX) || key.includes('..')) return res.status(400).json({ error: 'Bad key' });
+      const buf = Buffer.from(String(body.data || ''), 'base64');
+      if (!buf.length) return res.status(400).json({ error: 'Empty image' });
+      await s3().send(new PutObjectCommand({ Bucket: bucket(), Key: key, Body: buf, ContentType: 'image/jpeg' }));
+      return res.status(200).json({ ok: true });
+    }
+
     if (action === 'add') {
       const key = String(body.key || '');
       if (!key.startsWith(PREFIX) || key.includes('..')) return res.status(400).json({ error: 'Bad key' });

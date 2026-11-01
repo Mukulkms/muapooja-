@@ -123,10 +123,24 @@ export default function Admin() {
     for (const row of rows.filter((r) => r.status !== 'done')) {
       try {
         patchRow(row.id, { status: 'uploading…' });
-        const blob = await compress(row.file);
+        let blob = await compress(row.file);
+        if (blob.size > 2.8 * 1024 * 1024) blob = await compress(row.file, 1400, 0.7); // keep under Vercel's 4.5MB body limit
         const { url, key } = await api('sign', {}, token);
-        const put = await fetch(url, { method: 'PUT', headers: { 'Content-Type': 'image/jpeg' }, body: blob });
-        if (!put.ok) throw new Error('Backblaze rejected the upload (check CORS rule on the bucket)');
+        let ok = false;
+        try {
+          // fast path: browser uploads straight to Backblaze (needs the bucket CORS rule)
+          const put = await fetch(url, { method: 'PUT', headers: { 'Content-Type': 'image/jpeg' }, body: blob });
+          ok = put.ok;
+        } catch { /* CORS blocked -> fall back to uploading through our own server */ }
+        if (!ok) {
+          const data = await new Promise((res, rej) => {
+            const fr = new FileReader();
+            fr.onload = () => res(String(fr.result).split(',')[1]);
+            fr.onerror = () => rej(new Error('Could not read image'));
+            fr.readAsDataURL(blob);
+          });
+          await api('upload', { key, data }, token);
+        }
         const d = await api('add', { key, cat, tag, title: row.title.trim() || tag }, token);
         setItems(d.items);
         patchRow(row.id, { status: 'done' });
