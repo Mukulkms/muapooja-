@@ -1,7 +1,7 @@
 import crypto from 'node:crypto';
 import {
   configured, isAuthed, checkPassword, makeToken,
-  readManifest, writeManifest, publicUrl, s3, bucket,
+  readManifest, writeManifest, publicUrl, withUrls, s3, bucket,
   PutObjectCommand, DeleteObjectCommand, getSignedUrl, PREFIX,
 } from './_lib/shared.js';
 
@@ -26,7 +26,7 @@ export default async function handler(req, res) {
     if (!isAuthed(req)) return res.status(401).json({ error: 'Please log in again' });
 
     if (action === 'list') {
-      return res.status(200).json({ items: await readManifest() });
+      return res.status(200).json({ items: await withUrls(await readManifest()) });
     }
 
     if (action === 'sign') {
@@ -56,7 +56,7 @@ export default async function handler(req, res) {
         createdAt: new Date().toISOString(),
       });
       await writeManifest(items);
-      return res.status(200).json({ items });
+      return res.status(200).json({ items: await withUrls(items) });
     }
 
     if (action === 'delete') {
@@ -65,7 +65,7 @@ export default async function handler(req, res) {
       await s3().send(new DeleteObjectCommand({ Bucket: bucket(), Key: key }));
       const items = (await readManifest()).filter((i) => i.key !== key);
       await writeManifest(items);
-      return res.status(200).json({ items });
+      return res.status(200).json({ items: await withUrls(items) });
     }
 
     return res.status(400).json({ error: 'Unknown action' });

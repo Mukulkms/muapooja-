@@ -10,7 +10,7 @@ const env = () => process.env;
 
 export function configured() {
   const e = env();
-  return Boolean(e.B2_KEY_ID && e.B2_APP_KEY && e.B2_BUCKET && e.B2_ENDPOINT && e.B2_PUBLIC_URL && e.ADMIN_PASSWORD);
+  return Boolean(e.B2_KEY_ID && e.B2_APP_KEY && e.B2_BUCKET && e.B2_ENDPOINT && e.ADMIN_PASSWORD);
 }
 
 let client;
@@ -30,7 +30,20 @@ export function s3() {
 }
 
 export const bucket = () => env().B2_BUCKET;
-export const publicUrl = (key) => `${env().B2_PUBLIC_URL.replace(/\/$/, '')}/${key}`;
+// B2_PUBLIC_URL set   -> bucket is Public: photos use plain public links.
+// B2_PUBLIC_URL empty -> bucket is Private: photos get temporary signed links (free, no paid plan needed).
+export const publicUrl = (key) => {
+  const base = env().B2_PUBLIC_URL;
+  return base ? `${base.replace(/\/$/, '')}/${key}` : '';
+};
+
+export async function withUrls(items) {
+  if (env().B2_PUBLIC_URL) return items;
+  return Promise.all(items.map(async (i) => ({
+    ...i,
+    src: await getSignedUrl(s3(), new GetObjectCommand({ Bucket: bucket(), Key: i.key }), { expiresIn: 6 * 3600 }),
+  })));
+}
 
 export async function readManifest() {
   try {
