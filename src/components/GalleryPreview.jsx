@@ -27,13 +27,13 @@ export default function GalleryPreview() {
             items={items}
             preset="cylinder"
             intro="rise"
-            cardWidth={220}
+            cardWidth={360}
             aspectRatio={1}
             speed={14}
             captions={false}
-            gap={25}
-            tilt={-5}
-            curve={1}
+            gap={15}
+            tilt={-8}
+            curve={10}
             perspective={2500}
             autoplay="drift"
             interval={3}

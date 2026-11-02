@@ -82,8 +82,12 @@ header:not(.solid) .btn-dark{background:#fff;color:var(--ink)}header:not(.solid)
 .tbox{background:rgba(255,255,255,.35);border-radius:32px;padding:clamp(36px,5vw,64px) clamp(18px,3vw,44px)}
 .tslider{display:flex;align-items:center;gap:16px}
 .arrow{flex:none;width:42px;height:42px;border-radius:50%;border:1px solid var(--ink);background:none;cursor:pointer;font-size:1rem;transition:.2s}
-.arrow:hover{background:var(--ink);color:#fff}
+@media(hover:hover){.arrow:hover{background:var(--ink);color:#fff}}
 .tcards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;flex:1}
+.tcards.slide-next .tcard{animation:tin-next .55s cubic-bezier(.22,1,.36,1) both}
+.tcards.slide-prev .tcard{animation:tin-prev .55s cubic-bezier(.22,1,.36,1) both}
+@keyframes tin-next{from{opacity:0;transform:translateX(32px)}to{opacity:1;transform:none}}
+@keyframes tin-prev{from{opacity:0;transform:translateX(-32px)}to{opacity:1;transform:none}}
 .tcard{background:#fff;border-radius:16px;padding:26px 24px 22px}
 .tcard .q{font:400 3rem/.7 var(--serif);color:var(--copper);height:24px}
 .tcard p{font-size:.95rem;margin:10px 0 20px}
@@ -131,10 +135,13 @@ footer{background:rgba(255,255,255,.45);margin-top:var(--gap);padding:44px 0 26p
 }
 @media(max-width:620px){
   .steps{grid-template-columns:1fr}
-  .arrow{display:none}.form .frow{grid-template-columns:1fr}
+  .form .frow{grid-template-columns:1fr}
+  .tslider{flex-wrap:wrap;justify-content:center;gap:14px 18px}
+  .tslider .tcards{order:-1;flex:1 1 100%}
+  .arrow{width:46px;height:46px;font-size:1.1rem;background:#fff}
   .about-imgs{height:400px}
 }
-@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}.tcards .tcard{animation:none!important}}
 
 .hero{position:relative;min-height:100vh;min-height:100svh;padding:0;display:flex;flex-direction:column;color:#fff;overflow:hidden;background:#1a1a1a}
 .hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
@@ -232,4 +239,4 @@ header.sticky{position:sticky}
 @media(max-width:900px){.masonry{columns:2}}
 @media(max-width:560px){.masonry{column-gap:14px}.m{margin-bottom:14px}}
 
-.flexcar{width:100%;height:clamp(440px,56vw,640px);position:relative;margin-top:8px}
+.flexcar{width:100%;height:clamp(520px,58vw,580px);position:relative;margin-top:8px}

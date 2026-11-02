@@ -3,6 +3,7 @@ import { Routes, Route, useLocation } from 'react-router-dom';
 import Home from './pages/Home.jsx';
 import Gallery from './pages/Gallery.jsx';
 import Admin from './pages/Admin.jsx';
+import BrushCursor from './components/BrushCursor.jsx';
 
 function ScrollToHash() {
   const location = useLocation();
@@ -25,6 +26,7 @@ export default function App() {
         <Route path="*" element={<Home />} />
       </Routes>
       <ScrollToHash />
+      <BrushCursor />
     </>
   );
 }
