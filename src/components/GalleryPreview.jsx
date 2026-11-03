@@ -33,7 +33,7 @@ export default function GalleryPreview() {
             items={items}
             columns={cols}
             tileWidth={cols === 6 ? 280 : 150}
-            tileHeight={cols === 6 ? 220 : 120}
+            tileHeight={cols === 6 ? 420 : 120}
             gap={12}
             radius={11}
             tilt={18}
