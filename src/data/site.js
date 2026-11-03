@@ -1,5 +1,5 @@
 // All text content of the site lives here. Edit freely.
-export const PHONE = '919876543210'; // WhatsApp number with country code
+export const PHONE = '919654826605'; // WhatsApp number with country code
 
 export const CONTACT = {
   phone: '+91 9654 826605',
@@ -39,12 +39,12 @@ export const ABOUT_TICKS = [
 
 // img: add a photo path like '/images/bridal.jpg' to show it in the preview
 export const SERVICES = [
-  { name: 'Bridal Makeup', desc: 'Chosen for your facial features, dress and accessories.', from: 'From ₹25,000', img: '/public/bridal.jpeg' },
-  { name: 'Airbrush Bridal Makeup', desc: 'Light-weight, even finish that sits evenly on the skin.', from: 'From ₹30,000', img: '/public/s4.jpeg' },
-  { name: 'Engagement Makeup', desc: 'Your style, your best features, a professional finish.', from: 'On request', img: '/public/engagements.jpeg' },
-  { name: 'HD Party Makeup', desc: 'For bridesmaids, family and friends, so nothing gets in the way.', from: 'From ₹5,000', img: '/public/s6.jpeg' },
-  { name: 'Hair Styling', desc: 'Wedding hairstyles, buns, curls and braids to match your look.', from: 'On request', img: '/public/h4.jpeg' },
-  { name: 'Photoshoot & Editorial', desc: 'Camera-ready makeup for pre-wedding shoots and events.', from: 'On request', img: '/public/simplebride.jpeg' },
+  { name: 'Bridal Makeup', desc: 'Chosen for your facial features, dress and accessories.', from: 'From ₹25,000', img: '/bridal.jpeg' },
+  { name: 'Airbrush Bridal Makeup', desc: 'Light-weight, even finish that sits evenly on the skin.', from: 'From ₹30,000', img: '/s4.jpeg' },
+  { name: 'Engagement Makeup', desc: 'Your style, your best features, a professional finish.', from: 'On request', img: '/engagements.jpeg' },
+  { name: 'HD Party Makeup', desc: 'For bridesmaids, family and friends, so nothing gets in the way.', from: 'From ₹5,000', img: '/s6.jpeg' },
+  { name: 'Hair Styling', desc: 'Wedding hairstyles, buns, curls and braids to match your look.', from: 'On request', img: '/h4.jpeg' },
+  { name: 'Photoshoot & Editorial', desc: 'Camera-ready makeup for pre-wedding shoots and events.', from: 'On request', img: '/simplebride.jpeg' },
 ];
 
 export const PRICES = [
