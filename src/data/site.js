@@ -2,19 +2,19 @@
 export const PHONE = '919876543210'; // WhatsApp number with country code
 
 export const CONTACT = {
-  phone: '+91 98765 43210',
-  email: 'pooja.rajput@gmail.com',
+  phone: '+91 9654 826605',
+  email: 'muapoojarajput20@gmail.com',
   place: 'Ghaziabad & Delhi NCR, India',
 };
 
 export const SOCIAL = {
-  instagram: 'https://instagram.com/',
-  facebook: 'https://facebook.com/',
+  instagram: 'https://www.instagram.com/muapoojarajput?rpxt=MWZkbGp1NDdzbm00NQ',
+  facebook: 'https://www.facebook.com/2163658370573524',
 };
 
 export const HERO_STATS = [
   { big: '2016', small: 'Working since' },
-  { big: '250+', small: 'Happy brides' },
+  { big: '300+', small: 'Happy brides' },
   { big: 'On-site', small: 'Service at your venue' },
   { big: 'NCR', small: 'Ghaziabad & Delhi NCR' },
 ];
@@ -39,12 +39,12 @@ export const ABOUT_TICKS = [
 
 // img: add a photo path like '/images/bridal.jpg' to show it in the preview
 export const SERVICES = [
-  { name: 'Bridal Makeup', desc: 'Chosen for your facial features, dress and accessories.', from: 'From ₹25,000', img: '' },
-  { name: 'Airbrush Bridal Makeup', desc: 'Light-weight, even finish that sits evenly on the skin.', from: 'From ₹30,000', img: '' },
-  { name: 'Engagement Makeup', desc: 'Your style, your best features, a professional finish.', from: 'On request', img: '' },
-  { name: 'HD Party Makeup', desc: 'For bridesmaids, family and friends, so nothing gets in the way.', from: 'From ₹5,000', img: '' },
-  { name: 'Hair Styling', desc: 'Wedding hairstyles, buns, curls and braids to match your look.', from: 'On request', img: '' },
-  { name: 'Photoshoot & Editorial', desc: 'Camera-ready makeup for pre-wedding shoots and events.', from: 'On request', img: '' },
+  { name: 'Bridal Makeup', desc: 'Chosen for your facial features, dress and accessories.', from: 'From ₹25,000', img: '/public/bridal.jpeg' },
+  { name: 'Airbrush Bridal Makeup', desc: 'Light-weight, even finish that sits evenly on the skin.', from: 'From ₹30,000', img: '/public/s4.jpeg' },
+  { name: 'Engagement Makeup', desc: 'Your style, your best features, a professional finish.', from: 'On request', img: '/public/engagements.jpeg' },
+  { name: 'HD Party Makeup', desc: 'For bridesmaids, family and friends, so nothing gets in the way.', from: 'From ₹5,000', img: '/public/s6.jpeg' },
+  { name: 'Hair Styling', desc: 'Wedding hairstyles, buns, curls and braids to match your look.', from: 'On request', img: '/public/h4.jpeg' },
+  { name: 'Photoshoot & Editorial', desc: 'Camera-ready makeup for pre-wedding shoots and events.', from: 'On request', img: '/public/simplebride.jpeg' },
 ];
 
 export const PRICES = [
