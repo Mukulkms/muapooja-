@@ -25,5 +25,23 @@
 .adm-grid img{width:100%;aspect-ratio:1;object-fit:cover;display:block}
 .adm-grid figcaption{padding:10px 12px;display:grid;gap:2px;font-size:.85rem;flex:1}
 .adm-grid figcaption span{color:var(--muted)}
-.adm-del{border:0;border-top:1px solid var(--line);background:none;color:#b3261e;padding:10px;font:400 .88rem var(--sans);cursor:pointer}
-.adm-del:hover{background:#fdecea}
+.adm-actions{display:flex;border-top:1px solid var(--line)}
+.adm-actions button{flex:1;border:0;background:none;padding:10px;font:400 .88rem var(--sans);cursor:pointer;color:var(--ink)}
+.adm-actions button:hover{background:#f6efec}
+.adm-actions .adm-del{border-left:1px solid var(--line);color:#b3261e}
+.adm-actions .adm-del:hover{background:#fdecea}
+.adm-grid figure{position:relative}
+.adm-grid figure.sel{outline:3px solid #b3261e;outline-offset:-3px}
+.adm-grid img{cursor:pointer}
+.adm-pick{position:absolute;top:8px;left:8px;z-index:2;display:grid;place-items:center;width:34px;height:34px;border-radius:8px;background:rgba(255,255,255,.92);box-shadow:0 1px 4px rgba(0,0,0,.25);cursor:pointer}
+.adm-pick input{width:20px;height:20px;margin:0;cursor:pointer}
+.adm-bulk{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:0 0 14px;padding:10px 12px;background:#faf3f0;border-radius:10px;position:sticky;top:0;z-index:5}
+.adm-check{display:flex;align-items:center;gap:8px;font-size:.9rem;cursor:pointer}
+.adm-count{font-size:.9rem;font-weight:600}
+.adm-btn{border:1px solid var(--line);background:#fff;border-radius:8px;padding:8px 14px;font:400 .88rem var(--sans);cursor:pointer}
+.adm-btn:disabled{opacity:.5;cursor:default}
+.adm-btn.danger{background:#b3261e;border-color:#b3261e;color:#fff}
+.adm-modal{position:fixed;inset:0;z-index:50;background:rgba(0,0,0,.5);display:grid;place-items:center;padding:16px}
+.adm-edit{width:min(440px,100%);display:grid;gap:14px;margin:0}
+.adm-edit label{display:grid;gap:6px;font-size:.9rem}
+.adm-modal-btns{display:flex;justify-content:flex-end;gap:10px}

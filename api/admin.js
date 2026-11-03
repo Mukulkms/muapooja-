@@ -78,6 +78,31 @@ export default async function handler(req, res) {
       return res.status(200).json({ items: await withUrls(items) });
     }
 
+    if (action === 'deleteMany') {
+      const keys = (Array.isArray(body.keys) ? body.keys : []).map(String);
+      if (!keys.length || keys.some((k) => !k.startsWith(PREFIX) || k.includes('..'))) return res.status(400).json({ error: 'Bad keys' });
+      await Promise.all(keys.map((Key) => s3().send(new DeleteObjectCommand({ Bucket: bucket(), Key }))));
+      const items = (await readManifest()).filter((i) => !keys.includes(i.key));
+      await writeManifest(items);
+      return res.status(200).json({ items: await withUrls(items) });
+    }
+
+    if (action === 'update') {
+      // edit tag (category) and/or caption of one or many photos
+      const keys = (Array.isArray(body.keys) ? body.keys : [body.key]).map(String);
+      const tag = body.tag !== undefined ? clean(body.tag, 40) : null;
+      const cat = tag ? slug(body.cat || tag) : null;
+      if (tag !== null && !cat) return res.status(400).json({ error: 'Tag is required' });
+      const items = await readManifest();
+      items.forEach((i) => {
+        if (!keys.includes(i.key)) return;
+        if (tag) { i.tag = tag; i.cat = cat; }
+        if (body.title !== undefined) i.title = clean(body.title, 120);
+      });
+      await writeManifest(items);
+      return res.status(200).json({ items: await withUrls(items) });
+    }
+
     return res.status(400).json({ error: 'Unknown action' });
   } catch (err) {
     console.error(err);

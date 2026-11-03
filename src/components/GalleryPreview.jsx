@@ -4,6 +4,8 @@ import CircularCarousel from './CircularCarousel.jsx';
 import { useGallery } from '../hooks/useGallery.js';
 import { SOCIAL } from '../data/site.js';
 
+const MAX_SLIDES = 10; // carousel never shows more than 10 slides
+
 export default function GalleryPreview() {
   const { photos, loading } = useGallery();
 
@@ -13,7 +15,7 @@ export default function GalleryPreview() {
     if (!list.length) return list;
     const base = list;
     while (list.length < 8) list = list.concat(base);
-    return list;
+    return list.slice(0, MAX_SLIDES);
   }, [photos]);
 
   return (

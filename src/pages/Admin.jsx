@@ -51,6 +51,9 @@ export default function Admin() {
   const [filter, setFilter] = useState('all');
   const fileInput = useRef(null);
 
+  const [selected, setSelected] = useState(() => new Set()); // keys ticked for bulk actions
+  const [editing, setEditing] = useState(null); // { keys: [...], title, tagChoice, newTag } or null
+
   useEffect(() => { document.title = 'Admin – Gallery'; }, []);
 
   const logout = (msg = '') => {
@@ -154,14 +157,80 @@ export default function Admin() {
     if (fileInput.current) fileInput.current.value = '';
   };
 
+  const toggle = (key) => setSelected((s) => {
+    const n = new Set(s);
+    if (n.has(key)) n.delete(key); else n.add(key);
+    return n;
+  });
+
   const del = async (item) => {
     if (!window.confirm('Delete this photo permanently?')) return;
     setError('');
     try {
       const d = await api('delete', { key: item.key }, token);
       setItems(d.items);
+      setSelected((s) => { const n = new Set(s); n.delete(item.key); return n; });
     } catch (err) {
       guard(err);
+    }
+  };
+
+  const delSelected = async () => {
+    const keys = [...selected];
+    if (!keys.length) return;
+    if (!window.confirm(`Delete ${keys.length} photo${keys.length > 1 ? 's' : ''} permanently?`)) return;
+    setError('');
+    setBusy(true);
+    try {
+      const d = await api('deleteMany', { keys }, token);
+      setItems(d.items);
+      setSelected(new Set());
+    } catch (err) {
+      guard(err);
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  // open the edit box for one photo (title + tag prefilled) or for all ticked photos (tag only)
+  const startEdit = (keys) => {
+    const one = keys.length === 1 ? items.find((i) => i.key === keys[0]) : null;
+    const known = one && (CATEGORIES.some((c) => c.id === one.cat) || items.some((i) => i.cat === one.cat));
+    setEditing({
+      keys,
+      title: one ? one.title || '' : '',
+      tagChoice: one && known ? one.cat : CATEGORIES[0].id,
+      newTag: '',
+      single: Boolean(one),
+    });
+  };
+
+  const saveEdit = async () => {
+    const e = editing;
+    let tag; let cat;
+    if (e.tagChoice === NEW_TAG) {
+      tag = e.newTag.trim();
+      cat = tag;
+      if (!tag) { setError('Write the new tag name first.'); return; }
+    } else {
+      const preset = CATEGORIES.find((c) => c.id === e.tagChoice);
+      const existing = items.find((i) => i.cat === e.tagChoice);
+      tag = preset ? preset.label : existing.tag;
+      cat = e.tagChoice;
+    }
+    setError('');
+    setBusy(true);
+    try {
+      const body = { keys: e.keys, tag, cat };
+      if (e.single) body.title = e.title;
+      const d = await api('update', body, token);
+      setItems(d.items);
+      setEditing(null);
+      setSelected(new Set());
+    } catch (err) {
+      guard(err);
+    } finally {
+      setBusy(false);
     }
   };
 
@@ -182,6 +251,13 @@ export default function Admin() {
 
   const tags = [...new Map(items.map((i) => [i.cat, i.tag])).entries()];
   const shown = items.filter((i) => filter === 'all' || i.cat === filter);
+  const shownKeys = shown.map((i) => i.key);
+  const allShownSelected = shownKeys.length > 0 && shownKeys.every((k) => selected.has(k));
+  // tag choices for the edit box: presets + tags already used in the gallery
+  const editTags = [
+    ...CATEGORIES.map((c) => [c.id, c.label]),
+    ...tags.filter(([cat]) => !CATEGORIES.some((c) => c.id === cat)),
+  ];
 
   return (
     <div className="adm">
@@ -245,21 +321,83 @@ export default function Admin() {
             {tags.map(([cat, tag]) => <option key={cat} value={cat}>{tag}</option>)}
           </select>
         </div>
+        {shown.length > 0 && (
+          <div className="adm-bulk">
+            <label className="adm-check">
+              <input
+                type="checkbox"
+                checked={allShownSelected}
+                onChange={() => setSelected((s) => {
+                  const n = new Set(s);
+                  shownKeys.forEach((k) => (allShownSelected ? n.delete(k) : n.add(k)));
+                  return n;
+                })}
+              />
+              Select all{filter !== 'all' ? ' (this tag)' : ''}
+            </label>
+            {selected.size > 0 && (
+              <>
+                <span className="adm-count">{selected.size} selected</span>
+                <button type="button" className="adm-btn" onClick={() => startEdit([...selected])} disabled={busy}>Change tag</button>
+                <button type="button" className="adm-btn danger" onClick={delSelected} disabled={busy}>Delete selected ({selected.size})</button>
+                <button type="button" className="adm-btn" onClick={() => setSelected(new Set())}>Clear</button>
+              </>
+            )}
+          </div>
+        )}
         {loading && <p>Loading…</p>}
         {!loading && shown.length === 0 && <p>No photos yet.</p>}
         <div className="adm-grid">
           {shown.map((i) => (
-            <figure key={i.key}>
-              <img src={i.src} alt={i.title || i.tag} loading="lazy" />
+            <figure key={i.key} className={selected.has(i.key) ? 'sel' : ''}>
+              <label className="adm-pick" title="Select">
+                <input type="checkbox" checked={selected.has(i.key)} onChange={() => toggle(i.key)} aria-label="Select photo" />
+              </label>
+              <img src={i.src} alt={i.title || i.tag} loading="lazy" onClick={() => toggle(i.key)} />
               <figcaption>
                 <b>{i.tag}</b>
                 <span>{i.title}</span>
               </figcaption>
-              <button className="adm-del" onClick={() => del(i)}>Delete</button>
+              <div className="adm-actions">
+                <button type="button" onClick={() => startEdit([i.key])}>Edit</button>
+                <button type="button" className="adm-del" onClick={() => del(i)}>Delete</button>
+              </div>
             </figure>
           ))}
         </div>
       </section>
+
+      {editing && (
+        <div className="adm-modal" role="dialog" aria-modal="true" onClick={(ev) => { if (ev.target === ev.currentTarget && !busy) setEditing(null); }}>
+          <div className="adm-card adm-edit">
+            <h2>{editing.single ? 'Edit photo' : `Change tag for ${editing.keys.length} photos`}</h2>
+            {editing.single && (
+              <label>
+                Caption
+                <input value={editing.title} onChange={(e) => setEditing({ ...editing, title: e.target.value })} maxLength={120} placeholder="Caption (optional)" />
+              </label>
+            )}
+            <label>
+              Tag / category
+              <select value={editing.tagChoice} onChange={(e) => setEditing({ ...editing, tagChoice: e.target.value })}>
+                {editTags.map(([id, label]) => <option key={id} value={id}>{label}</option>)}
+                <option value={NEW_TAG}>+ New tag…</option>
+              </select>
+            </label>
+            {editing.tagChoice === NEW_TAG && (
+              <label>
+                New tag name
+                <input value={editing.newTag} onChange={(e) => setEditing({ ...editing, newTag: e.target.value })} maxLength={40} placeholder="e.g. Mehendi Makeup" autoFocus />
+              </label>
+            )}
+            {error && <p className="adm-err">{error}</p>}
+            <div className="adm-modal-btns">
+              <button type="button" className="adm-btn" onClick={() => setEditing(null)} disabled={busy}>Cancel</button>
+              <button type="button" className="btn btn-copper" onClick={saveEdit} disabled={busy}>{busy ? 'Saving…' : 'Save'}</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
