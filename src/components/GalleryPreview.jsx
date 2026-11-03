@@ -4,7 +4,7 @@ import DriftWall from './DriftWall.jsx';
 import { useGallery } from '../hooks/useGallery.js';
 import { SOCIAL } from '../data/site.js';
 
-const MAX_SLIDES = 10; // home wall never shows more than 10 photos
+const MAX_SLIDES = 10; // carousel never shows more than 10 slides
 
 export default function GalleryPreview() {
   const { photos, loading } = useGallery();
@@ -17,10 +17,10 @@ export default function GalleryPreview() {
     return () => mq.removeEventListener('change', on);
   }, []);
 
-  const items = useMemo(
-    () => photos.slice(0, MAX_SLIDES).map(p => ({ image: p.src, title: p.title || p.tag || 'Makeup look' })),
-    [photos]
-  );
+    const items = useMemo(() => {
+    // max 10 photos on the home page wall
+    return photos.slice(0, MAX_SLIDES).map(p => ({ image: p.src, title: p.title || p.tag || 'Makeup look' }));
+  }, [photos]);
 
   return (
     <section id="work">
