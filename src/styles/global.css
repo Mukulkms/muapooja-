@@ -219,7 +219,8 @@ header.sticky{position:sticky}
 .masonry{columns:3;column-gap:26px;padding-bottom:clamp(64px,8vw,110px)}
 .m{position:relative;display:block;break-inside:avoid;margin:0 0 26px;border-radius:14px;overflow:hidden;width:100%;border:0;padding:0;background:none;cursor:zoom-in}
 .m .ph{position:absolute;inset:0;transition:transform .7s}
-.m:hover .ph,.m:focus-visible .ph{transform:scale(1.06)}
+.m .m-img{display:block;width:100%;height:auto;transition:transform .7s}
+.m:hover .ph,.m:focus-visible .ph,.m:hover .m-img,.m:focus-visible .m-img{transform:scale(1.06)}
 .m .cap{position:absolute;left:14px;bottom:14px;background:rgba(255,255,255,.88);backdrop-filter:blur(6px);padding:5px 14px;border-radius:999px;font-size:.78rem;color:var(--ink);opacity:0;transform:translateY(6px);transition:.3s}
 .m:hover .cap,.m:focus-visible .cap{opacity:1;transform:none}
 @media(hover:none){.m .cap{opacity:1;transform:none}}
@@ -239,4 +240,4 @@ header.sticky{position:sticky}
 @media(max-width:900px){.masonry{columns:2}}
 @media(max-width:560px){.masonry{column-gap:14px}.m{margin-bottom:14px}}
 
-.flexcar{width:100%;height:clamp(520px,58vw,580px);position:relative;margin-top:8px}
+.flexcar{width:100%;height:clamp(460px,52vw,620px);position:relative;margin-top:8px}

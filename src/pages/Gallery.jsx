@@ -276,8 +276,10 @@ export default function Gallery() {
           {!loading && photos.length === 0 && <p className="lead" style={{ paddingBottom: 80, textAlign: 'center' }}>Photos coming soon.</p>}
           <div className="masonry">
             {visible.map(p => (
-              <button key={p.key || p.i} type="button" className={'m ' + RATIO[p.i % RATIO.length]} aria-label={'Open photo: ' + (p.title || p.tag)} onClick={() => open(p.i)}>
-                <div className="ph" style={p.src ? { '--img': `url('${p.src}')` } : undefined}></div>
+              <button key={p.key || p.i} type="button" className={'m' + (p.src ? '' : ' ' + RATIO[p.i % RATIO.length])} aria-label={'Open photo: ' + (p.title || p.tag)} onClick={() => open(p.i)}>
+                {p.src
+                  ? <img className="m-img" src={p.src} alt={p.title || p.tag || ''} loading="lazy" decoding="async" />
+                  : <div className="ph"></div>}
                 <span className="cap">{p.title || labels[p.cat]}</span>
               </button>
             ))}

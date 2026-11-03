@@ -1,19 +1,25 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import CircularCarousel from './CircularCarousel.jsx';
+import DriftWall from './DriftWall.jsx';
 import { useGallery } from '../hooks/useGallery.js';
 import { SOCIAL } from '../data/site.js';
 
+const MAX_SLIDES = 10; // carousel never shows more than 10 slides
+
 export default function GalleryPreview() {
   const { photos, loading } = useGallery();
+  const [cols, setCols] = useState(4);
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 700px)');
+    const on = () => setCols(mq.matches ? 2 : 4);
+    on();
+    mq.addEventListener('change', on);
+    return () => mq.removeEventListener('change', on);
+  }, []);
 
-  // the cylinder needs a few cards to look right, so repeat short lists
-  const items = useMemo(() => {
-    let list = photos.map(p => ({ src: p.src, alt: p.title || p.tag || 'Makeup look', title: p.title || p.tag }));
-    if (!list.length) return list;
-    const base = list;
-    while (list.length < 8) list = list.concat(base);
-    return list;
+    const items = useMemo(() => {
+    // max 10 photos on the home page wall
+    return photos.slice(0, MAX_SLIDES).map(p => ({ image: p.src, title: p.title || p.tag || 'Makeup look' }));
   }, [photos]);
 
   return (
@@ -23,32 +29,26 @@ export default function GalleryPreview() {
       </div>
       {!loading && items.length > 0 && (
         <div className="flexcar">
-          <CircularCarousel
+          <DriftWall
             items={items}
-            preset="cylinder"
-            intro="rise"
-            cardWidth={360}
-            aspectRatio={1}
-            speed={14}
-            captions={false}
-            gap={15}
-            tilt={-8}
-            curve={10}
-            perspective={2500}
-            autoplay="drift"
-            interval={3}
-            direction="left"
-            momentum={0.6}
-            snap
+            columns={cols}
+            tileWidth={cols === 2 ? 150 : 220}
+            tileHeight={cols === 2 ? 200 : 290}
+            gap={16}
+            radius={14}
+            tilt={14}
+            turn={-12}
+            perspective={1200}
+            depth={100}
+            speed={34}
+            direction="up"
+            variance={0.4}
+            parallax={0.5}
             pauseOnHover
-            focusOnClick
-            draggable
-            parallax={0.3}
-            stretch={0.5}
-            fadeColor="#fbe4dd"
-            depthFade={0.55}
-            innerShade={0.6}
-            cornerRadius={12}
+            lift={50}
+            fade={0.6}
+            dim={0.7}
+            overlayColor="#fbe4dd"
           />
         </div>
       )}

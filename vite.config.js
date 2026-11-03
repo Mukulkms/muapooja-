@@ -96,6 +96,27 @@ const devApi = (password) => ({
           write(items);
           return send(res, 200, { items });
         }
+        if (action === 'deleteMany') {
+          const keys = (Array.isArray(data.keys) ? data.keys : []).map(String);
+          keys.forEach((k) => { try { fs.unlinkSync(path.join(dir, 'files', path.basename(k))); } catch { /* ok */ } });
+          const items = read().filter((i) => !keys.includes(i.key));
+          write(items);
+          return send(res, 200, { items });
+        }
+        if (action === 'update') {
+          const keys = (Array.isArray(data.keys) ? data.keys : [data.key]).map(String);
+          const tag = data.tag !== undefined ? String(data.tag).trim().slice(0, 40) : null;
+          const cat = tag ? slug(data.cat || tag) : null;
+          if (tag !== null && !cat) return send(res, 400, { error: 'Tag is required' });
+          const items = read();
+          items.forEach((i) => {
+            if (!keys.includes(i.key)) return;
+            if (tag) { i.tag = tag; i.cat = cat; }
+            if (data.title !== undefined) i.title = String(data.title).trim().slice(0, 120);
+          });
+          write(items);
+          return send(res, 200, { items });
+        }
         return send(res, 400, { error: 'Unknown action' });
       }
 
