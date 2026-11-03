@@ -1,0 +1,14 @@
+/* Crops the tall TextLoop canvas into a slim decorative band between sections */
+.loopband {
+  position: relative;
+  width: 100%;
+  height: clamp(240px, 28vw, 360px);
+  overflow: hidden;
+}
+.loopband-in {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: max(100%, 1000px); /* on phones the band stays wide, so the text stays readable */
+  transform: translate(-50%, -50%);
+}

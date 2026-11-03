@@ -3,6 +3,7 @@ import Header from '../components/Header.jsx';
 import Hero from '../components/Hero.jsx';
 import Marquee from '../components/Marquee.jsx';
 import About from '../components/About.jsx';
+import LoopBand from '../components/LoopBand.jsx';
 import Services from '../components/Services.jsx';
 import Pricing from '../components/Pricing.jsx';
 import Process from '../components/Process.jsx';
@@ -25,6 +26,7 @@ export default function Home() {
         <Hero />
         <Marquee items={SERVICE_MARQUEE} label="Services" />
         <About />
+        <LoopBand />
         <Services />
         <Pricing />
         <Process />
