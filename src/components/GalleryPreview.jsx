@@ -8,10 +8,10 @@ const MAX_SLIDES = 10; // carousel never shows more than 10 slides
 
 export default function GalleryPreview() {
   const { photos, loading } = useGallery();
-  const [cols, setCols] = useState(4);
+  const [cols, setCols] = useState(6);
   useEffect(() => {
     const mq = window.matchMedia('(max-width: 700px)');
-    const on = () => setCols(mq.matches ? 2 : 4);
+    const on = () => setCols(mq.matches ? 3 : 6);
     on();
     mq.addEventListener('change', on);
     return () => mq.removeEventListener('change', on);
@@ -32,23 +32,25 @@ export default function GalleryPreview() {
           <DriftWall
             items={items}
             columns={cols}
-            tileWidth={cols === 2 ? 150 : 220}
-            tileHeight={cols === 2 ? 200 : 290}
-            gap={16}
-            radius={14}
-            tilt={14}
-            turn={-12}
-            perspective={1200}
-            depth={100}
-            speed={34}
+            tileWidth={cols === 6 ? 212 : 130}
+            tileHeight={cols === 6 ? 164 : 100}
+            gap={6}
+            radius={11}
+            tilt={18}
+            turn={-14}
+            roll={0}
+            perspective={1250}
+            depth={120}
+            speed={42}
             direction="up"
-            variance={0.4}
-            parallax={0.5}
-            pauseOnHover
-            lift={50}
-            fade={0.6}
-            dim={0.7}
-            overlayColor="#fbe4dd"
+            variance={0.45}
+            parallax={0.6}
+            pauseOnHover={false}
+            lift={64}
+            fade={0.15}
+            dim={1}
+            grayscale={false}
+            overlayColor="#060010"
           />
         </div>
       )}
