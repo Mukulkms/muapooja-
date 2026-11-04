@@ -15,7 +15,7 @@ export default function Pricing() {
             ))}
             <div className="note">Prices can change with venue, travel and number of people. Message me for an exact quote.</div>
           </div>
-          <div className="ph" data-label="Bridal portrait"></div>
+          <div className="ph" data-label="Bridal portrait" role="img" aria-label="Bridal portrait" style={{ '--img': "url('/bridal.jpeg')" }}></div>
         </div>
       </div>
     </section>
