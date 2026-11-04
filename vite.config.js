@@ -6,7 +6,7 @@ import crypto from 'node:crypto';
 
 // LOCAL DEV BACKEND (only runs with `npm run dev`, never in production).
 // Fakes /api/admin and /api/gallery so you can test /admin without Backblaze or Vercel.
-// Photos + list are saved in ./.dev-data/ (git-ignored). Default password: 78955
+// Photos + list are saved in ./.dev-data/ (git-ignored). Default password: dev-only-change-me
 // (change it with ADMIN_PASSWORD=... in a .env file).
 const devApi = (password) => ({
   name: 'dev-api',
@@ -127,5 +127,5 @@ const devApi = (password) => ({
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
-  return { plugins: [react(), devApi(env.ADMIN_PASSWORD || '78955')] };
+  return { plugins: [react(), devApi(env.ADMIN_PASSWORD || 'dev-only-change-me')] };
 });

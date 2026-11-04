@@ -3,7 +3,7 @@ import './LoopVideo.css';
 
 // Muted video that loops forever. The file starts downloading only when the
 // section is close to the screen, and it pauses while it is off screen.
-export default function LoopVideo({ src, className = '', label }) {
+export default function LoopVideo({ src, poster, className = '', label }) {
   const boxRef = useRef(null);
   const vidRef = useRef(null);
   const [load, setLoad] = useState(false);
@@ -28,10 +28,11 @@ export default function LoopVideo({ src, className = '', label }) {
   }, [reduced]);
 
   return (
-    <div ref={boxRef} className={'ph loopvid ' + className} role="img" aria-label={label}>
+    <div ref={boxRef} className={'ph loopvid ' + className} role="img" aria-label={label} style={poster ? { '--img': `url('${poster}')` } : undefined}>
       {load && (
         <video
           ref={vidRef}
+          poster={poster}
           src={reduced ? src + '#t=0.1' : src}
           autoPlay={!reduced}
           muted

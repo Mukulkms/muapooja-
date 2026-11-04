@@ -28,9 +28,9 @@ export default function Home() {
         <About />
         <LoopBand />
         <Services />
+        <GalleryPreview />
         <Pricing />
         <Process />
-        <GalleryPreview />
         <Testimonials />
         <Faq />
         <Contact />

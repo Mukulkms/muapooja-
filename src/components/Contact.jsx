@@ -19,7 +19,7 @@ export default function Contact() {
   return (
     <section id="contact">
       <div className="wrap book">
-        <LoopVideo src="/queen.mp4" className="book-img" label="Bridal makeup video" />
+        <LoopVideo src="/queen.mp4" poster="/queen-poster.jpg" className="book-img" label="Bridal makeup video" />
         <div className="left">
           <div className="eyebrow">Book an appointment</div>
           <h2>Let’s plan your <span className="script">perfect look</span></h2>

@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /api/
+
+# TODO: replace YOUR-DOMAIN.com with your real website address
+Sitemap: https://YOUR-DOMAIN.com/sitemap.xml

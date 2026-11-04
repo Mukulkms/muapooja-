@@ -102,7 +102,7 @@ export default function Services() {
               if (!url || !(ready || i === active)) return null;
               return (
                 <div key={s.name} className={'sp-layer' + (i === active ? ' on' : i === prev ? ' prev' : '')}>
-                  <img src={url} alt="" draggable={false} decoding="async" fetchpriority={i === active ? 'high' : 'low'} onError={() => { if (!bad.has(i) && s.img && url !== s.img) setBad(b => new Set(b).add(i)); }} />
+                  <img src={url} alt={`${s.name} by Pooja Rajput`} draggable={false} decoding="async" fetchpriority={i === active ? 'high' : 'low'} onError={() => { if (!bad.has(i) && s.img && url !== s.img) setBad(b => new Set(b).add(i)); }} />
                 </div>
               );
             })}

@@ -31,6 +31,13 @@ export const BIG_MARQUEE = [
   { text: 'Be Beautiful. Be You.', script: true }, { text: 'Ghaziabad & Delhi NCR' },
 ];
 
+// Put Pooja's real photos in public/ and write their paths here, e.g. portrait: '/pooja-portrait.jpg'
+// While these are empty the About section shows the pink placeholder boxes.
+export const ABOUT_PHOTOS = {
+  portrait: '',
+  working: '',
+};
+
 export const ABOUT_TICKS = [
   'Personalised look for your face, dress and jewellery',
   'Convenient on-site service at your home or venue',
@@ -40,11 +47,11 @@ export const ABOUT_TICKS = [
 // preview: optimized photo for the desktop hover preview (public/opt/). thumb: small passport-size photo for phones (public/thumbs/). img: original, kept as backup
 export const SERVICES = [
   { name: 'Bridal Makeup', desc: 'Chosen for your facial features, dress and accessories.', from: 'From ₹25,000', img: '/opt/bridal.webp', preview: '/opt/bridal.webp', thumb: '/thumbs/bridal.jpg' },
-  { name: 'Airbrush Bridal Makeup', desc: 'Light-weight, even finish that sits evenly on the skin.', from: 'From ₹30,000', img: '/opt/s4.jpeg', preview: '/opt/s4.webp', thumb: '/thumbs/s4.jpg' },
-  { name: 'Engagement Makeup', desc: 'Your style, your best features, a professional finish.', from: 'On request', img: '/opt/engagements.jpeg', preview: '/opt/engagements.webp', thumb: '/thumbs/engagements.jpg' },
-  { name: 'HD Party Makeup', desc: 'For bridesmaids, family and friends, so nothing gets in the way.', from: 'From ₹5,000', img: '/opt/s6.jpeg', preview: '/opt/s6.webp', thumb: '/thumbs/s6.jpg' },
-  { name: 'Hair Styling', desc: 'Wedding hairstyles, buns, curls and braids to match your look.', from: 'On request', img: '/opt/h4.jpeg', preview: '/opt/h4.webp', thumb: '/thumbs/h4.jpg' },
-  { name: 'Photoshoot & Editorial', desc: 'Camera-ready makeup for pre-wedding shoots and events.', from: 'On request', img: '/opt/simplebride.jpeg', preview: '/opt/simplebride.webp', thumb: '/thumbs/simplebride.jpg' },
+  { name: 'Airbrush Bridal Makeup', desc: 'Light-weight, even finish that sits evenly on the skin.', from: 'From ₹30,000', img: '/s4.jpeg', preview: '/opt/s4.webp', thumb: '/thumbs/s4.jpg' },
+  { name: 'Engagement Makeup', desc: 'Your style, your best features, a professional finish.', from: 'On request', img: '/engagements.jpeg', preview: '/opt/engagements.webp', thumb: '/thumbs/engagements.jpg' },
+  { name: 'HD Party Makeup', desc: 'For bridesmaids, family and friends, so nothing gets in the way.', from: 'From ₹5,000', img: '/s6.jpeg', preview: '/opt/s6.webp', thumb: '/thumbs/s6.jpg' },
+  { name: 'Hair Styling', desc: 'Wedding hairstyles, buns, curls and braids to match your look.', from: 'On request', img: '/h4.jpeg', preview: '/opt/h4.webp', thumb: '/thumbs/h4.jpg' },
+  { name: 'Photoshoot & Editorial', desc: 'Camera-ready makeup for pre-wedding shoots and events.', from: 'On request', img: '/simplebride.jpeg', preview: '/opt/simplebride.webp', thumb: '/thumbs/simplebride.jpg' },
 ];
 
 export const PRICES = [
@@ -71,5 +78,8 @@ export const FAQS = [
   { q: 'Do you travel to my home or venue?', a: 'Yes. I offer on-site service in Ghaziabad and across Delhi NCR. Travel charges may apply depending on distance.' },
   { q: 'Airbrush or traditional, which should I choose?', a: 'Airbrush is lighter and very even, great for HD cameras and long hours. Traditional is classic and budget friendly. I will suggest the best one after seeing your skin and outfit.' },
   { q: 'Will the makeup last the whole function?', a: 'Yes. I prep your skin and set the look so it stays fresh through photos, rituals and dancing.' },
+  { q: 'Do you offer a makeup trial?', a: 'Trial availability and charges depend on your date and the look you want. Message me on WhatsApp and I will confirm the details for you.' },
+  { q: 'How much advance do I need to pay, and what if my date changes?', a: 'A small advance locks your date. I will share the advance amount and the date-change and cancellation terms at the time of booking, so everything is clear before you pay.' },
+  { q: 'I have sensitive skin or allergies. Is that okay?', a: 'Please tell me about your skin type and any allergies when you book. I plan the prep and products around that, so your skin stays comfortable all day.' },
   { q: 'Do you do makeup for family and bridesmaids too?', a: 'Yes, through my HD Party Makeup service. Tell me how many people and I will share a quote.' },
 ];

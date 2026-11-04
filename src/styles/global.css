@@ -241,3 +241,16 @@ header.sticky{position:sticky}
 @media(max-width:560px){.masonry{column-gap:14px}.m{margin-bottom:14px}}
 
 .flexcar{width:100%;height:clamp(460px,52vw,620px);position:relative;margin-top:8px}
+
+/* phones: sticky Call + WhatsApp bar */
+.mbar{display:none}
+@media(max-width:700px){
+  .mbar{display:flex;gap:8px;position:fixed;left:0;right:0;bottom:0;z-index:70;padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:rgba(255,248,245,.96);backdrop-filter:blur(8px);border-top:1px solid var(--line);transform:translateY(110%);transition:transform .3s}
+  .mbar.show{transform:none}
+  .mbar a{flex:1;text-align:center;padding:12px 10px;border-radius:999px;font:500 .85rem var(--sans);letter-spacing:.04em}
+  .mbar-call{border:1px solid var(--copper);color:var(--copper);background:none}
+  .mbar-wa{background:#25d366;color:#fff;flex:1.6}
+  .fab.wa{display:none}
+  .totop{bottom:76px}
+  body{padding-bottom:64px}
+}

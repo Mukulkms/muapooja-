@@ -44,6 +44,7 @@ export default function Hero() {
         ref={vref}
         className="hero-video"
         src={mobile ? '/mobilemain.mp4' : '/main.mp4'}
+        poster={mobile ? '/hero-poster-mobile.jpg' : '/hero-poster.jpg'}
         autoPlay
         muted
         loop
