@@ -39,12 +39,12 @@ export const ABOUT_TICKS = [
 
 // preview: optimized photo for the desktop hover preview (public/opt/). thumb: small passport-size photo for phones (public/thumbs/). img: original, kept as backup
 export const SERVICES = [
-  { name: 'Bridal Makeup', desc: 'Chosen for your facial features, dress and accessories.', from: 'From ₹25,000', img: '/bridal.jpeg', preview: '/opt/bridal.webp', thumb: '/thumbs/bridal.jpg' },
-  { name: 'Airbrush Bridal Makeup', desc: 'Light-weight, even finish that sits evenly on the skin.', from: 'From ₹30,000', img: '/s4.jpeg', preview: '/opt/s4.webp', thumb: '/thumbs/s4.jpg' },
-  { name: 'Engagement Makeup', desc: 'Your style, your best features, a professional finish.', from: 'On request', img: '/engagements.jpeg', preview: '/opt/engagements.webp', thumb: '/thumbs/engagements.jpg' },
-  { name: 'HD Party Makeup', desc: 'For bridesmaids, family and friends, so nothing gets in the way.', from: 'From ₹5,000', img: '/s6.jpeg', preview: '/opt/s6.webp', thumb: '/thumbs/s6.jpg' },
-  { name: 'Hair Styling', desc: 'Wedding hairstyles, buns, curls and braids to match your look.', from: 'On request', img: '/h4.jpeg', preview: '/opt/h4.webp', thumb: '/thumbs/h4.jpg' },
-  { name: 'Photoshoot & Editorial', desc: 'Camera-ready makeup for pre-wedding shoots and events.', from: 'On request', img: '/simplebride.jpeg', preview: '/opt/simplebride.webp', thumb: '/thumbs/simplebride.jpg' },
+  { name: 'Bridal Makeup', desc: 'Chosen for your facial features, dress and accessories.', from: 'From ₹25,000', img: '/opt/bridal.webp', preview: '/opt/bridal.webp', thumb: '/thumbs/bridal.jpg' },
+  { name: 'Airbrush Bridal Makeup', desc: 'Light-weight, even finish that sits evenly on the skin.', from: 'From ₹30,000', img: '/opt/s4.jpeg', preview: '/opt/s4.webp', thumb: '/thumbs/s4.jpg' },
+  { name: 'Engagement Makeup', desc: 'Your style, your best features, a professional finish.', from: 'On request', img: '/opt/engagements.jpeg', preview: '/opt/engagements.webp', thumb: '/thumbs/engagements.jpg' },
+  { name: 'HD Party Makeup', desc: 'For bridesmaids, family and friends, so nothing gets in the way.', from: 'From ₹5,000', img: '/opt/s6.jpeg', preview: '/opt/s6.webp', thumb: '/thumbs/s6.jpg' },
+  { name: 'Hair Styling', desc: 'Wedding hairstyles, buns, curls and braids to match your look.', from: 'On request', img: '/opt/h4.jpeg', preview: '/opt/h4.webp', thumb: '/thumbs/h4.jpg' },
+  { name: 'Photoshoot & Editorial', desc: 'Camera-ready makeup for pre-wedding shoots and events.', from: 'On request', img: '/opt/simplebride.jpeg', preview: '/opt/simplebride.webp', thumb: '/thumbs/simplebride.jpg' },
 ];
 
 export const PRICES = [
