@@ -28,12 +28,12 @@ export default function GalleryPreview() {
         <div className="head"><div className="eyebrow">My work</div><h2>A Gallery of <span className="script">Elegance</span></h2><p className="lead">A glimpse of my work, where beauty meets perfection.</p></div>
       </div>
       {!loading && items.length > 0 && (
-        <div className="flexcar" style={{ height: 600 }}>
+        <div className="flexcar" style={{ height: cols === 6 ? 600 : 720 }}>
           <DriftWall
             items={items}
             columns={cols}
-            tileWidth={cols === 6 ? 280 : 150}
-            tileHeight={cols === 6 ? 420 : 120}
+            tileWidth={cols === 6 ? 280 : 156}
+            tileHeight={cols === 6 ? 420 : 234}
             gap={12}
             radius={11}
             tilt={18}

@@ -44,21 +44,22 @@
   }
   .slist .srow.open .sthumb-card { opacity: 1; transform: none; padding-top: 16px; }
 
-  /* passport size (about 35 x 45 mm) */
+  /* passport ratio (35 x 45 mm), sized to the phone width */
   .sthumb-img {
     flex: none;
     display: block;
-    width: 92px;
-    height: 118px;
+    width: clamp(128px, 38vw, 176px);
+    aspect-ratio: 7 / 9;
+    height: auto;
     object-fit: cover;
-    border-radius: 10px;
+    border-radius: 12px;
     background: var(--rose);
-    box-shadow: 0 8px 20px rgba(120, 50, 40, 0.2);
+    box-shadow: 0 10px 24px rgba(120, 50, 40, 0.22);
     animation: sthumb-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
   .sthumb-meta { display: grid; gap: 4px; padding-bottom: 4px; }
-  .sthumb-meta b { font: 400 0.95rem var(--serif); color: var(--ink); }
-  .sthumb-meta em { font-style: normal; font-size: 0.85rem; color: var(--muted); }
+  .sthumb-meta b { font: 400 1.05rem var(--serif); color: var(--ink); }
+  .sthumb-meta em { font-style: normal; font-size: 0.9rem; color: var(--muted); }
 }
 @keyframes sthumb-in { from { opacity: 0; filter: blur(6px); } to { opacity: 1; filter: none; } }
 @media (prefers-reduced-motion: reduce) { .sthumb-img { animation: none; } }
