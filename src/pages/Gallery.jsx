@@ -210,9 +210,12 @@ function Viewer({ open, item, resetKey, caption, pos, total, onClose, onStep, cl
   );
 }
 
+const PAGE_SIZE = 6; // photos shown first; each "Load more" adds this many
+
 export default function Gallery() {
   const { photos, loading } = useGallery();
   const [filter, setFilter] = useState('all');
+  const [count, setCount] = useState(PAGE_SIZE); // how many photos are shown (6 at first, +6 per click)
   const [cur, setCur] = useState(null); // index into photos, or null when closed
   const lastFocus = useRef(null);
   const closeBtn = useRef(null);
@@ -235,6 +238,10 @@ export default function Gallery() {
     () => photos.map((p, i) => ({ ...p, i })).filter(p => filter === 'all' || p.cat === filter),
     [photos, filter]
   );
+
+  const shown = visible.slice(0, count);
+  const remaining = visible.length - shown.length;
+  const pickFilter = (c) => { setFilter(c); setCount(PAGE_SIZE); }; // new filter -> start from 6 again
 
   const open = (i) => { lastFocus.current = document.activeElement; setCur(i); };
   const close = () => { setCur(null); lastFocus.current?.focus(); };
@@ -266,7 +273,7 @@ export default function Gallery() {
             {cats.length > 1 && (
               <div className="chips">
                 {cats.map(c => (
-                  <button key={c} type="button" className={'chip' + (c === filter ? ' on' : '')} onClick={() => setFilter(c)}>
+                  <button key={c} type="button" className={'chip' + (c === filter ? ' on' : '')} onClick={() => pickFilter(c)}>
                     {c === 'all' ? 'All' : labels[c]}
                   </button>
                 ))}
@@ -275,7 +282,7 @@ export default function Gallery() {
           </div>
           {!loading && photos.length === 0 && <p className="lead" style={{ paddingBottom: 80, textAlign: 'center' }}>Photos coming soon.</p>}
           <div className="masonry">
-            {visible.map(p => (
+            {shown.map(p => (
               <button key={p.key || p.i} type="button" className={'m' + (p.src ? '' : ' ' + RATIO[p.i % RATIO.length])} aria-label={'Open photo: ' + (p.title || p.tag)} onClick={() => open(p.i)}>
                 {p.src
                   ? <img className="m-img" src={p.src} alt={p.title || p.tag || ''} loading="lazy" decoding="async" />
@@ -284,6 +291,13 @@ export default function Gallery() {
               </button>
             ))}
           </div>
+          {remaining > 0 && (
+            <div className="gmore">
+              <button type="button" className="btn btn-copper" onClick={() => setCount(c => c + PAGE_SIZE)}>
+                Load more ({remaining} more)
+              </button>
+            </div>
+          )}
         </div>
       </main>
 

@@ -245,12 +245,15 @@ header.sticky{position:sticky}
 /* phones: sticky Call + WhatsApp bar */
 .mbar{display:none}
 @media(max-width:700px){
-  .mbar{display:flex;gap:8px;position:fixed;left:0;right:0;bottom:0;z-index:70;padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:rgba(255,248,245,.96);backdrop-filter:blur(8px);border-top:1px solid var(--line);transform:translateY(110%);transition:transform .3s}
+  .mbar{display:flex;gap:8px;position:fixed;left:0;right:0;bottom:0;z-index:70;padding:7px 12px calc(7px + env(safe-area-inset-bottom));background:rgba(255,248,245,.96);backdrop-filter:blur(8px);border-top:1px solid var(--line);transform:translateY(110%);transition:transform .3s}
   .mbar.show{transform:none}
-  .mbar a{flex:1;text-align:center;padding:12px 10px;border-radius:999px;font:500 .85rem var(--sans);letter-spacing:.04em}
+  .mbar a{flex:1;display:flex;align-items:center;justify-content:center;min-height:38px;padding:0 10px;border-radius:999px;font:500 .8rem/1 var(--sans);letter-spacing:.02em;white-space:nowrap}
   .mbar-call{border:1px solid var(--copper);color:var(--copper);background:none}
-  .mbar-wa{background:#25d366;color:#fff;flex:1.6}
+  .mbar-wa{background:#25d366;color:#fff}
   .fab.wa{display:none}
-  .totop{bottom:76px}
-  body{padding-bottom:64px}
+  .totop{bottom:62px;width:42px;height:42px}
+  body{padding-bottom:52px}
+}
+@media(max-width:380px){
+  .mbar a{font-size:.74rem;padding:0 6px}
 }
