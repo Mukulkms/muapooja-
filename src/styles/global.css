@@ -2,7 +2,7 @@
   --blush:#fdeee9;--rose:#f2bfb4;--copper:#b4604b;--copper-2:#c98068;--ink:#3a241d;--muted:#7a5a50;
   --line:rgba(180,96,75,.2);--card:rgba(255,255,255,.6);
   --serif:'Playfair Display',Georgia,serif;--script:'Pinyon Script',cursive;--sans:'Jost',system-ui,sans-serif;
-  --wrap:1240px;--gap:clamp(80px,9vw,128px);
+  --wrap:1240px;--gap:clamp(40px,9vw,128px);
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;font-size:16px;scroll-padding-top:84px}
