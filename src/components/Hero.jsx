@@ -2,17 +2,32 @@ import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { HERO_STATS } from '../data/site.js';
 
+// phones / small screens get the portrait video, everything else gets the wide one
+const MOBILE_Q = '(max-width: 768px)';
+const isMobile = () => typeof window !== 'undefined' && window.matchMedia(MOBILE_Q).matches;
+
 export default function Hero() {
   const vref = useRef(null);
   const [muted, setMuted] = useState(true);
+  const [mobile, setMobile] = useState(isMobile);
 
   useEffect(() => {
+    const mq = window.matchMedia(MOBILE_Q);
+    const on = () => setMobile(mq.matches);
+    on();
+    mq.addEventListener('change', on);
+    return () => mq.removeEventListener('change', on);
+  }, []);
+
+  // a new <video> is created when the source changes, so reset the sound button too
+  useEffect(() => {
+    setMuted(true);
     const v = vref.current;
     if (v && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       v.removeAttribute('autoplay');
       v.pause();
     }
-  }, []);
+  }, [mobile]);
 
   const toggleSound = () => {
     const v = vref.current;
@@ -23,10 +38,18 @@ export default function Hero() {
 
   return (
     <section className="hero">
-      {/* Put your video at public/main.mp4 (10–20 sec, under 6 MB) and a poster at public/images/hero-poster.jpg */}
-      <video ref={vref} className="hero-video" autoPlay muted loop playsInline preload="metadata" poster="/images/hero-poster.jpg">
-        <source src="/main.mp4" type="video/mp4" />
-      </video>
+      {/* public/main.mp4 = desktop / wide screens, public/mobilemain.mp4 = phones */}
+      <video
+        key={mobile ? 'mobile' : 'desktop'}
+        ref={vref}
+        className="hero-video"
+        src={mobile ? '/mobilemain.mp4' : '/main.mp4'}
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="metadata"
+      />
       <div className="hero-shade"></div>
       <div className="wrap hero-in">
         <div className="hero-text">

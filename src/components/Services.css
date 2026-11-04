@@ -1,7 +1,7 @@
-/* Services list: no arrow button, rows do not navigate anywhere.
-   Desktop: hover swaps the big preview. Phone/tablet: tap opens a small passport-size photo. */
+/* Services list: rows do not navigate anywhere.
+   Desktop: hover swaps the big preview. Phone/tablet: "Expand" + arrow opens a big centred photo. */
 .slist .srow {
-  grid-template-columns: 1fr auto; /* text | price (arrow button removed) */
+  grid-template-columns: 1fr auto; /* text | price */
   cursor: pointer;
   outline: none;
   -webkit-tap-highlight-color: transparent;
@@ -9,20 +9,42 @@
 .slist .srow:focus-visible { box-shadow: inset 0 0 0 2px rgba(180, 96, 75, 0.45); border-radius: 6px; }
 .slist .sthumb { display: none; }
 
+/* "Expand" + arrow: only on phones / tablets */
+.slist .sexpand { display: none; }
+
 @media (max-width: 1100px) {
   .slist .srow {
-    grid-template-columns: 1fr;
-    gap: 0;
+    grid-template-columns: 1fr auto; /* text | Expand + arrow */
+    align-items: center;
+    column-gap: 14px;
   }
   .slist .srow .from { display: none; }
+  .slist .sthumb { grid-column: 1 / -1; }
 
   /* hover colours only for the opened row (touch screens keep a "sticky" hover otherwise) */
   .slist .srow:not(.open),
   .slist .srow.on:not(.open),
   .slist .srow:hover:not(.open) { padding-left: 0; }
   .slist .srow:not(.open) h3 { color: inherit; }
-  .slist .srow.open { padding-left: 14px; }
+  .slist .srow.open { padding-left: 0; }          /* 0 so the photo is exactly centred */
   .slist .srow.open h3 { color: var(--copper); }
+
+  .slist .sexpand {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    flex: none;
+    padding: 8px 14px;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    font-size: 0.82rem;
+    letter-spacing: 0.04em;
+    color: var(--copper);
+    transition: background 0.3s, color 0.3s, border-color 0.3s;
+  }
+  .sexpand-ic { width: 16px; height: 16px; transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1); }
+  .slist .srow.open .sexpand { background: var(--copper); color: #fff; border-color: var(--copper); }
+  .slist .srow.open .sexpand-ic { transform: rotate(180deg); }
 
   .slist .sthumb {
     display: grid;
@@ -32,33 +54,36 @@
   .slist .srow.open .sthumb { grid-template-rows: 1fr; }
   .sthumb-in { min-height: 0; overflow: hidden; }
 
+  /* big photo, centred, sized to the screen width */
   .sthumb-card {
     display: flex;
-    align-items: flex-end;
-    gap: 16px;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
     padding-top: 0;
+    text-align: center;
     opacity: 0;
-    transform: translateY(-10px) scale(0.94);
-    transform-origin: left top;
+    transform: translateY(-10px) scale(0.96);
+    transform-origin: center top;
     transition: opacity 0.35s ease 0.08s, transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), padding 0.5s cubic-bezier(0.22, 1, 0.36, 1);
   }
-  .slist .srow.open .sthumb-card { opacity: 1; transform: none; padding-top: 16px; }
+  .slist .srow.open .sthumb-card { opacity: 1; transform: none; padding: 16px 0 8px; }
 
-  /* passport ratio (35 x 45 mm), sized to the phone width */
   .sthumb-img {
     flex: none;
     display: block;
-    width: clamp(128px, 38vw, 176px);
-    aspect-ratio: 7 / 9;
+    width: min(100%, 460px);
+    aspect-ratio: 4 / 5;
     height: auto;
     object-fit: cover;
-    border-radius: 12px;
+    object-position: 50% 25%;
+    border-radius: 18px;
     background: var(--rose);
-    box-shadow: 0 10px 24px rgba(120, 50, 40, 0.22);
+    box-shadow: 0 12px 28px rgba(120, 50, 40, 0.22);
     animation: sthumb-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
-  .sthumb-meta { display: grid; gap: 4px; padding-bottom: 4px; }
-  .sthumb-meta b { font: 400 1.05rem var(--serif); color: var(--ink); }
+  .sthumb-meta { display: grid; justify-items: center; gap: 4px; }
+  .sthumb-meta b { font: 400 1.1rem var(--serif); color: var(--ink); }
   .sthumb-meta em { font-style: normal; font-size: 0.9rem; color: var(--muted); }
 }
 @keyframes sthumb-in { from { opacity: 0; filter: blur(6px); } to { opacity: 1; filter: none; } }

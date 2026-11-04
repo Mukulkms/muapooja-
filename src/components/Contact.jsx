@@ -1,4 +1,5 @@
 import { CONTACT, PHONE } from '../data/site.js';
+import LoopVideo from './LoopVideo.jsx';
 
 export default function Contact() {
   const submit = (e) => {
@@ -18,7 +19,7 @@ export default function Contact() {
   return (
     <section id="contact">
       <div className="wrap book">
-        <div className="ph book-img" data-label="Booking photo"></div>
+        <LoopVideo src="/queen.mp4" className="book-img" label="Bridal makeup video" />
         <div className="left">
           <div className="eyebrow">Book an appointment</div>
           <h2>Let’s plan your <span className="script">perfect look</span></h2>

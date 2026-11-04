@@ -71,6 +71,11 @@ export default function Services() {
               >
                 <div className="sinfo"><h3>{s.name}</h3><p>{s.desc}</p></div>
                 <span className="from">{s.from}</span>
+                {/* phone / tablet only: "Expand" + arrow, the photo opens under the row */}
+                <span className="sexpand" aria-hidden="true">
+                  <span className="sexpand-txt">Expand</span>
+                  <svg className="sexpand-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M6 9l6 6 6-6" /></svg>
+                </span>
                 {/* small passport-size photo, only on phones / tablets (tiny files, preloaded) */}
                 <span className="sthumb" aria-hidden="true">
                   <span className="sthumb-in">
