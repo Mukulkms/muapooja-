@@ -1,8 +1,4 @@
-// Edit THIS file to change the photos on the home-page gallery AND on /gallery.
-// This list is only a BACKUP shown if the live gallery (Backblaze/admin) cannot load.
-// src   = path to your photo (must exist inside public/)
-// cat   = bridal | airbrush | engagement | party | hair   (used for the filter buttons)
-// title = small caption shown on hover / in the viewer
+
 const PHOTOS = [
   { src: '/opt/bridal.webp',       cat: 'bridal',     title: 'Bridal Look' },
   { src: '/opt/s4.webp',           cat: 'airbrush',   title: 'Airbrush Bridal' },
