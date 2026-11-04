@@ -31,7 +31,7 @@ export default function Header({ variant = 'home' }) {
     <header className={(solid ? 'solid' : '') + (isHome ? '' : ' sticky')}>
       <div className="wrap nav">
         <Link to="/#home" className="logo">
-          <b>MUA</b>
+          <b>P</b>
           <div><span>Pooja Rajput</span><small>Makeup Artist</small></div>
         </Link>
         <nav className={'links' + (open ? ' open' : '')} id="links">

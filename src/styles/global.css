@@ -31,7 +31,7 @@ h2 .script{font-size:1.2em;margin-left:.1em}
 
 header{position:fixed;top:0;left:0;right:0;z-index:50;background:transparent;border-bottom:1px solid transparent;transition:background .3s,border-color .3s}
 header.solid{background:rgba(255,248,245,.92);backdrop-filter:blur(12px);border-color:var(--line)}
-header:not(.solid) .links a,header:not(.solid) .logo span,header:not(.solid) .logo small,header:not(.solid) .logo b{color:#fff}
+header:not(.solid) .links a,header:not(.solid) .logo span,header:not(.solid) .logo small,header:not(.solid) .logo b{color:var(--copper)}
 header:not(.solid) .ic a{border-color:rgba(255,255,255,.4)}header:not(.solid) .ic svg{stroke:#fff}
 header:not(.solid) .btn-dark{background:#fff;color:var(--ink)}header:not(.solid) .burger i{background:#fff}
 .nav{display:flex;align-items:center;justify-content:space-between;height:76px;gap:20px}
