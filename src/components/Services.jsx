@@ -5,7 +5,6 @@ import './Services.css';
 export default function Services() {
   const [active, setActive] = useState(0);   // row under the mouse -> its photo is shown on the right (desktop)
   const [prev, setPrev] = useState(null);    // photo that was showing before (kept underneath so fades never flash)
-  const [open, setOpen] = useState(null);    // phone / tablet: tapped row -> small photo opens under it
   const [wide, setWide] = useState(() => (typeof window === 'undefined' ? true : window.matchMedia('(min-width: 1101px)').matches)); // desktop layout (big preview visible)
   const [bad, setBad] = useState(() => new Set());  // previews that failed to load -> use the original photo instead
   const [ready, setReady] = useState(false); // true once the section is close to the screen -> photos are preloaded
@@ -35,16 +34,6 @@ export default function Services() {
     setPrev(active);
     setActive(i);
   };
-  const choose = i => {
-    select(i);
-    setOpen(o => (o === i ? null : i));
-  };
-  const onKey = (e, i) => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      choose(i);
-    }
-  };
 
   const cur = SERVICES[active];
 
@@ -61,36 +50,17 @@ export default function Services() {
             {SERVICES.map((s, i) => (
               <div
                 key={s.name}
-                role="button"
                 tabIndex={0}
-                aria-expanded={open === i}
-                className={'srow' + (i === active ? ' on' : '') + (i === open ? ' open' : '')}
+                className={'srow' + (i === active ? ' on' : '')}
                 onMouseEnter={() => select(i)}
                 onFocus={() => select(i)}
-                onClick={() => choose(i)}
-                onKeyDown={e => onKey(e, i)}
               >
                 <div className="sinfo"><h3>{s.name}</h3><p>{s.desc}</p></div>
                 <span className="from">{s.from}</span>
-                {/* phone / tablet only: "Expand" + arrow, the photo opens under the row */}
-                <span className="sexpand" aria-hidden="true">
-                  <span className="sexpand-txt">Expand</span>
-                  <svg className="sexpand-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M6 9l6 6 6-6" /></svg>
-                </span>
-                {/* small passport-size photo, only on phones / tablets (tiny files, preloaded) */}
-                <span className="sthumb" aria-hidden="true">
-                  <span className="sthumb-in">
-                    <span className="sthumb-card">
-                      {!wide && (ready || i === open) && (s.thumb || s.img) && (
-                        <img className="sthumb-img" src={s.thumb || s.img} alt="" draggable={false} decoding="async" />
-                      )}
-                      <span className="sthumb-meta">
-                        <b>{s.name}</b>
-                        <em>{s.from}</em>
-                      </span>
-                    </span>
-                  </span>
-                </span>
+                {/* phone / tablet only: photo is always shown directly under the text */}
+                {!wide && (s.preview || s.img || s.thumb) && (
+                  <img className="sthumb-img" src={s.preview || s.img || s.thumb} alt={`${s.name} by Pooja Rajput`} loading="lazy" draggable={false} decoding="async" />
+                )}
               </div>
             ))}
           </div>

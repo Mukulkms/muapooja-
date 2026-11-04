@@ -4,7 +4,7 @@ import DriftWall from './DriftWall.jsx';
 import { useGallery } from '../hooks/useGallery.js';
 import { SOCIAL } from '../data/site.js';
 
-const MAX_SLIDES = 10; // carousel never shows more than 10 slides
+const MAX_SLIDES = 15; // carousel never shows more than 10 slides
 
 export default function GalleryPreview() {
   const { photos, loading } = useGallery();

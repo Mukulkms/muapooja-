@@ -47,8 +47,12 @@ header:not(.solid) .btn-dark{background:#fff;color:var(--ink)}header:not(.solid)
 .ic a{width:34px;height:34px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;transition:.2s}
 .ic a:hover{background:var(--copper);border-color:var(--copper)}.ic a:hover svg{stroke:#fff}
 .ic svg{width:16px;height:16px;stroke:var(--ink);fill:none;stroke-width:1.5}
-.burger{display:none;background:none;border:0;width:42px;height:42px;cursor:pointer}
-.burger i{display:block;height:1.5px;background:var(--ink);margin:7px 9px}
+.burger{display:none;position:relative;background:none;border:0;width:42px;height:42px;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.burger i{position:absolute;left:9px;right:9px;top:50%;height:1.5px;margin:-.75px 0 0;border-radius:2px;background:var(--ink);transition:transform .4s cubic-bezier(.22,1,.36,1),background-color .3s}
+.burger i:nth-child(1){transform:translateY(-4px)}
+.burger i:nth-child(2){transform:translateY(4px)}
+.burger.open i:nth-child(1){transform:rotate(45deg)}
+.burger.open i:nth-child(2){transform:rotate(-45deg)}
 
 
 .about{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,6vw,88px);align-items:center}
@@ -126,8 +130,12 @@ footer{background:rgba(255,255,255,.45);margin-top:var(--gap);padding:44px 0 26p
 .totop{bottom:20px;background:var(--copper);color:#fff;font-size:1.2rem;opacity:0;pointer-events:none;transition:opacity .25s}.totop.show{opacity:1;pointer-events:auto}
 
 @media(max-width:1100px){
-  .links{display:none;position:absolute;top:76px;left:0;right:0;background:#fff8f5;flex-direction:column;gap:2px;padding:14px 24px 22px;border-bottom:1px solid var(--line)}
-  .links.open{display:flex}.links a{padding:10px 0;font-size:1rem}
+  .links{display:flex;position:absolute;top:76px;left:0;right:0;background:#fff8f5;flex-direction:column;gap:2px;padding:0 24px;border-bottom:1px solid transparent;
+    max-height:0;overflow:hidden;opacity:0;visibility:hidden;transform:translateY(-8px);
+    transition:max-height .45s cubic-bezier(.22,1,.36,1),padding .45s cubic-bezier(.22,1,.36,1),opacity .3s ease,transform .45s cubic-bezier(.22,1,.36,1),border-color .3s,visibility 0s linear .45s}
+  .links.open{max-height:460px;padding:14px 24px 22px;opacity:1;visibility:visible;transform:none;border-color:var(--line);transition-delay:0s}
+  .links a{padding:10px 0;font-size:1rem;opacity:0;transform:translateY(-6px);transition:opacity .3s ease,transform .4s cubic-bezier(.22,1,.36,1),border-color .2s,color .2s}
+  .links.open a{opacity:1;transform:none;transition-delay:calc(var(--i,0) * 45ms + 80ms),calc(var(--i,0) * 45ms + 80ms),0s,0s}
   .burger{display:block}.nav-r .btn-dark,.ic{display:none}
   .pricing .ph{position:static;height:440px;order:-1}
   .tcards{grid-template-columns:1fr}.tcards .tcard:nth-child(n+2){display:none}
